@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.summary = "GSM Text encode"
   s.description = "GSM Text encode"
   s.authors = ["Jorge Kalmbach"]
-  s.files = ["lib/gsm_texting.rb"]
+  s.files = `git ls-files lib`.split("\n")
   s.homepage = "https://rubygems/gems/gsm_texting"
   s.license = "MIT"
 end
