@@ -1,11 +1,11 @@
 require 'character_constants'
 
-module ConversionTable
+module CompatibilityTable
   include CharacterConstants
 
   # https://www.twilio.com/docs/sms/services/copilot-smart-encoding-char-list
   # Converts UNICODE characters to GSM compatible ones
-  CONVERSION_TABLE = {
+  COMPATIBILITY_TABLE = {
     0x00ab => DQ, # «
     0x00bb => DQ, # »
     0x02ba => DQ, # ʺ

@@ -13,15 +13,25 @@ RSpec.describe GSMTexting do
     end
 
     it "cannot encode incompatible unicode characters" do
-      unicode_characters = GSMTexting::CONVERSION_TABLE.keys.pack("U*")
+      unicode_characters = GSMTexting::COMPATIBILITY_TABLE.keys.pack("U*")
       expect(GSMTexting.can_encode?(unicode_characters)).to be false
     end
   end
 
   describe "#encode" do
     it "can convert unicode to gsm compatible chars" do
-      unicode_characters = GSMTexting::CONVERSION_TABLE.keys.pack("U*")
+      unicode_characters = GSMTexting::COMPATIBILITY_TABLE.keys.pack("U*")
+      expect(GSMTexting.can_encode?(unicode_characters)).to be false
+
       converted_characters = GSMTexting.encode(unicode_characters)
+      expect(GSMTexting.can_encode?(converted_characters)).to be true
+    end
+
+    it "can convert unicode chars to similar gsm chars" do
+      unicode_characters = "áéíóu"
+      expect(GSMTexting.can_encode?(unicode_characters)).to be false
+      converted_characters = GSMTexting.encode(unicode_characters)
+      puts "converted: " + converted_characters
       expect(GSMTexting.can_encode?(converted_characters)).to be true
     end
   end

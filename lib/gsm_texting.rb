@@ -1,9 +1,9 @@
 require 'character_constants'
-require 'conversion_table'
+require 'compatibility_table'
 
 module GSMTexting
   include CharacterConstants
-  include ConversionTable
+  include CompatibilityTable
   extend self
 
   DEFAULT_REPLACE_CHAR = "?".freeze
@@ -50,7 +50,7 @@ module GSMTexting
     end
 
     str.unpack("U*").map { |char|
-      gsm_compatible_char = CONVERSION_TABLE[char]
+      gsm_compatible_char = COMPATIBILITY_TABLE[char]
       utf8_char = char.chr(Encoding::UTF_8)
       gsm_char = can_encode?(utf8_char) ? utf8_char : replace_char
 
