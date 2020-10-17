@@ -1,8 +1,10 @@
 require 'character_constants'
+require 'compatibility_table'
 require 'conversion_table'
 
 module GSMTexting
   include CharacterConstants
+  include CompatibilityTable
   include ConversionTable
   extend self
 
@@ -42,19 +44,34 @@ module GSMTexting
   end
 
   # Convert unicode chars to GSM-7 compatible equivalents if possible
-  def encode(str, replace_char: nil)
+  def encode(str, transliterate: false, replace_char: nil)
     return if str.nil?
-
-    unless replace_char && can_encode?(replace_char)
-      replace_char = DEFAULT_REPLACE_CHAR
-    end
+    replace_char = canonicalize_replace_char(replace_char)
 
     str.unpack("U*").map { |char|
-      gsm_compatible_char = CONVERSION_TABLE[char]
       utf8_char = char.chr(Encoding::UTF_8)
-      gsm_char = can_encode?(utf8_char) ? utf8_char : replace_char
 
-      gsm_compatible_char || gsm_char
+      compatible_char = compatible_char_for(char)
+      transformed_char = transformed_char_for(char) if transliterate
+      gsm_char_for(compatible_char || transformed_char || utf8_char, replace_char)
     }.join
+  end
+
+  private
+
+  def canonicalize_replace_char(char)
+    char && can_encode?(char) ? char : DEFAULT_REPLACE_CHAR
+  end
+
+  def compatible_char_for(char)
+    COMPATIBILITY_TABLE[char]
+  end
+
+  def transformed_char_for(char)
+    CONVERSION_TABLE[char]
+  end
+
+  def gsm_char_for(char, replace_char)
+    can_encode?(char) ? char : replace_char
   end
 end
