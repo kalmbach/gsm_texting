@@ -24,3 +24,19 @@ Resources:
 https://en.wikipedia.org/wiki/GSM_03.38
 https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding
 https://www.twilio.com/docs/sms/services/smart-encoding-char-list
+
+## usage
+```ruby
+require 'gsm_texting'
+GSMTexting.can_encode?("àáàáèéìíòóùú") 
+=> false
+
+GSMTexting.encode("àáàáèéìíòóùú")
+=> "à?à?èéì?ò?ù?"
+
+GSMTexting.encode("àáàáèéìíòóùú", replace_char: "*")
+=> "à*à*èéì*ò*ù*"
+
+GSMTexting.encode("àáàáèéìíòóùú", transliterate: true)
+=> "àaàaèéìiòoùu"
+```
