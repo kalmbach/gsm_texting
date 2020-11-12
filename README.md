@@ -1,4 +1,4 @@
-# gsm_texting
+# gsm_texting [![Code Climate](https://codeclimate.com/github/kalmbach/gsm_texting.png)](https://codeclimate.com/github/kalmbach/gsm_texting)
 
 GSM-7 is a character encoding standard which packs the most commonly used 
 letters and symbols in many languages into 7 bits each for usage on GSM networks.  
