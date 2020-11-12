@@ -38,9 +38,9 @@ def can_encode?(str); end
 # be encoded. If none is provied, "?" will be used.
 #
 # :transliterate, if true characters with accents, cedilla and other unique
-# attributes will be transfored to a GSM-7 compatible char that look alike
+# attributes will be transformed to a GSM-7 compatible char that look alike
 #
-# :truncate, if true string will be truncated to fit in a single SMS Segment 
+# :truncate, if true, string will be truncated to fit in a single SMS Segment 
 def encode(str, replace_char: nil, transliterate: false, truncate: false); end
 ```
 
@@ -63,4 +63,7 @@ GSMTexting.encode("àáàáèéìíòóùú", replace_char: "*")
 
 GSMTexting.encode("àáàáèéìíòóùú", transliterate: true)
 => "àaàaèéìiòoùu"
+
+GSMTexting.single_segment?("hi there")
+=> true
 ```
