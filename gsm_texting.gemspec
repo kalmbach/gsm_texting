@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "gsm_texting"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
   s.date = "2020-09-12"
   s.summary = "GSM Text encode"
   s.description = "GSM Text encode"

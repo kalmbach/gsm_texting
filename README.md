@@ -25,6 +25,30 @@ https://en.wikipedia.org/wiki/GSM_03.38
 https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding
 https://www.twilio.com/docs/sms/services/smart-encoding-char-list
 
+## methods
+```ruby
+# Checks if a string can be encoded in GSM-7
+def can_encode?(str); end
+```
+
+```ruby
+# Encodes string in GSM-7 characters
+#
+# :replace_char, use this char as replacement for those characters that cannot
+# be encoded. If none is provied, "?" will be used.
+#
+# :transliterate, if true characters with accents, cedilla and other unique
+# attributes will be transfored to a GSM-7 compatible char that look alike
+#
+# :truncate, if true string will be truncated to fit in a single SMS Segment 
+def encode(str, replace_char: nil, transliterate: false, truncate: false); end
+```
+
+```ruby
+# Returns true if string can be encoded in GSM-7 and fits in a single segment.
+def single_segment?(str); end 
+```
+
 ## usage
 ```ruby
 require 'gsm_texting'
